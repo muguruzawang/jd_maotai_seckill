@@ -28,10 +28,12 @@ class Timer(object):
         从京东服务器获取时间毫秒
         :return:
         """
-        url = 'https://a.jd.com//ajax/queryServerData.html'
+        # url = 'https://a.jd.com//ajax/queryServerData.html'
+        # jd timestamp service is now 404, use taobao timestamp service instead
+        url = 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp'
         ret = requests.get(url).text
         js = json.loads(ret)
-        return int(js["serverTime"])
+        return int(js["data"]["t"])
 
     def local_time(self):
         """
